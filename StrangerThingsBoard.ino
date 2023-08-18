@@ -115,12 +115,12 @@ void setup() {
   M5.Lcd.drawCentreString("Scan/Connect to:",120,225,2);
   M5.Lcd.setTextColor(RED);
   M5.Lcd.drawCentreString(ssid_name,120,255,2);
-  M5.Lcd.drawCentreString(passphrases[randomnumber],120,280,2);
+  M5.Lcd.drawCentreString(passphrases[randomnumber],120,285,2);
   Serial.println("Created QR Code");
   Serial.print("SSID: ");
-  Serial.println("ssid_name");
+  Serial.println(ssid_name);
   Serial.print("PSK: ");
-  Serial.println("ssid_passphrase");
+  Serial.println(passphrases[randomnumber]);
   Serial.println("");
 
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
@@ -177,7 +177,7 @@ void loop() {
                 currentLine.toUpperCase();                
                 blink();
                 darkness();
-                if(currentLine="RICK") {
+                if(currentLine=="RICK") {
                   writeMessage("NEVER GONNA GIVE YOU UP. NEVER GONNA LET YOU DOWN. NEVER GONNA RUN AROUND AND DESERT YOU. NEVER GONNA MAKE YOU CRY. NEVER GONNA SAY GOODBYE. NEVER GONNA TELL A LIE AND HURT YOU.");
                 } else {
                   writeMessage(currentLine);
