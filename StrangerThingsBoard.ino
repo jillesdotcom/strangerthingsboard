@@ -96,7 +96,8 @@ const char responseHTML[] PROGMEM = ""
   "<input name=flag type=SUBMIT value=DE> "
   "<input name=flag type=SUBMIT value=FR> "
   "<input name=flag type=SUBMIT value=Bi> "
-  "<input name=flag type=SUBMIT value=Gay>"
+  "<input name=flag type=SUBMIT value=Gay> "
+  "<input name=text type=SUBMIT value=Rick>"
   "</form></p></center></font></body></html>";
 
 void setup() {
@@ -173,10 +174,14 @@ void loop() {
               if( currentLine.endsWith("flag=Gay")            ) { flag("Gay"); delay(2000); xmas();}
               if( currentLine.startsWith("GET /blink?text=")  ) { 
                 currentLine.replace("GET /blink?text=","");
-                currentLine.toUpperCase();
+                currentLine.toUpperCase();                
                 blink();
                 darkness();
-                writeMessage(currentLine);
+                if(currentLine="RICK") {
+                  writeMessage("NEVER GONNA GIVE YOU UP. NEVER GONNA LET YOU DOWN. NEVER GONNA RUN AROUND AND DESERT YOU. NEVER GONNA MAKE YOU CRY. NEVER GONNA SAY GOODBYE. NEVER GONNA TELL A LIE AND HURT YOU.");
+                } else {
+                  writeMessage(currentLine);
+                }
                 xmas();
               }
 
@@ -206,7 +211,7 @@ void writeMessage(String msg){
   darkness();
   boolean rcc = true;
   msg.toUpperCase();
-  M5.Lcd.println(msg);
+  Serial.println(msg);
   int dot;
   
   delay(1000);
