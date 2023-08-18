@@ -160,7 +160,6 @@ void loop() {
             if (currentLine.startsWith("GET /blink")) {
               currentLine.replace(" HTTP/1.1","");
               currentLine.replace("text=&","");
-              currentLine.replace("+"," ");
               if( currentLine.endsWith("patern=Rainbow")      ) { rainbow(10); xmas();}
               if( currentLine.endsWith("patern=Rainbowcycle") ) { theaterChaseRainbow(10); xmas();}
               if( currentLine.endsWith("patern=Lightning")    ) { lightning(); xmas();}
@@ -180,13 +179,13 @@ void loop() {
                 if(currentLine=="RICK") {
                   writeMessage("NEVER GONNA GIVE YOU UP. NEVER GONNA LET YOU DOWN. NEVER GONNA RUN AROUND AND DESERT YOU. NEVER GONNA MAKE YOU CRY. NEVER GONNA SAY GOODBYE. NEVER GONNA TELL A LIE AND HURT YOU.");
                 } else {
-                  writeMessage(currentLine);
+                  writeMessage(urldecode(currentLine));
                 }
                 xmas();
               }
 
               Serial.println("Blink");
-              Serial.println(currentLine);
+              Serial.println(urldecode(currentLine));
             }
             if (currentLine.length() == 0) {
               client.println("HTTP/1.1 200 OK");
@@ -470,4 +469,25 @@ void flag( String country ) {                 //  green red blue
   
   strip.show();
   
+}
+
+String urldecode(String str) {
+    
+    String encodedString="";
+    char c;
+    char code0;
+    char code1;
+    for (int i =0; i < str.length(); i++){
+        c=str.charAt(i);
+      if (c == '+'){
+        encodedString+=' ';  
+      }else if (c == '%') {
+        i=i+2;
+      } else{        
+        encodedString+=c;  
+      }      
+      yield();
+    }
+    
+   return encodedString;
 }
